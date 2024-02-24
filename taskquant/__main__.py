@@ -13,6 +13,7 @@ parser.add_argument("-w", "--weekly", action="store_true", help="weekly score")
 
 # add verbose flag
 parser.add_argument("-v", "--verbose", action="store_true", help="verbose mode")
+parser.add_argument("-b", "--balance", action="store_true", help="balance mode")
 
 args = parser.parse_args()
 

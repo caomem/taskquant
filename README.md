@@ -1,15 +1,27 @@
 ## TaskQuant
-This is a CLI application that helps Taskwarrior users quantify their productivity by tracking the 'score' attribute in their tasks.
+This is a CLI application that helps Taskwarrior users quantify their productivity by tracking the 'reward' attribute in their tasks.
 
-`score` is a custom [User Defined Attributes](https://taskwarrior.org/docs/udas.html). You will need to have that configured in your `.taskrc` file. A sample configuration for this attribute would be:
+`reward` is a custom [User Defined Attributes](https://taskwarrior.org/docs/udas.html). You will need to have that configured in your `.taskrc` file. A sample configuration for this attribute would be:
 
 ```
-uda.score.type=numeric
-uda.score.label=Score 🏆 
-urgency.uda.score.coefficient=2
+uda.reward.type=numeric
+uda.reward.label=reward
+uda.reward.default=0.0
+```
+After this, it is recommended to update all your tasks to have one default value as reward. You can do it by run
+```bash
+task rc.allow.empty.filter=1 modify reward:0
+```
+It allow you to create rewards to your tasks. For example, try `task add Take out the garbage reward:1`.
+Not only, but it allow you to create some tasks with negative reward value, that you can interpret as one award that you pay with the accumulated rewards. Try `task add Watch a movie reward:-10`.
+> I suggest you to always duplicate the award tasks before use done on these.
+Another good idea is to create some contexts to filter for this awards:
+```
+context.work.read=project:work and (reward.after:0 or reward:0)
+context.market.read=reward.before:-1
 ```
 
-TaskQuant will then compute the score(s) you have accumulated across the different tasks and return a scoresheet.
+TaskQuant will then compute the rewards you have accumulated across the different tasks and return a rewardsheet.
 
 TaskQuant **has no external dependencies** except `tasklib`, which is also by [the same organization](https://github.com/GothenburgBitFactory) that developed Taskwarrior. 
 
@@ -36,7 +48,8 @@ tq
 ```
 
 - It supports an optional `-p` (`path`) argument to specify the path to your `.task` file. **Especially** helpful if you changed the default location of your `.task` file.
-- It supports an optional `-v` (`verbose`) argument to print out additional 
+- It supports an optional `-v` (`verbose`) argument to print out additional
+- It supports an optional `-b` (`balance`) argument to print just your current balance
 information in its output.
 
 ```bash
@@ -44,7 +57,7 @@ tq -p ~/vaults/tasks -v
 
 # outputs:
 +------------+-------+------------+
-|    Date    | Score | Cumulative |
+|    Date    | reward |  Balance  |
 +------------+-------+------------+
 | 2022-03-09 |   0   |     0      |
 | 2022-03-10 |   8   |     8      |
@@ -64,13 +77,18 @@ Total completed tasks: 48
 Active dates: 13
 task_path: /home/samuel/vaults/tasks
 ```
+```bash
+tq -p ~/vaults/tasks -b 
+94
+```
 
-You can also print a weekly (`-w`) version of the scoresheet:
+
+You can also print a weekly (`-w`) version of the rewardsheet:
 
 ```bash
 tq -w 
 +-------+-------+------------+
-| Week# | Score | Cumulative |
+| Week# | reward |  Balance  |
 +-------+-------+------------+
 |  10   |  56   |     56     |
 |  11   |  33   |     89     |
@@ -123,7 +141,7 @@ OK
 
 ### Roadmap
 - Add terminal-based charts and graphs
-- New ways to visualize scores based on tags, projects or other attributes
+- New ways to visualize rewards based on tags, projects or other attributes
 
 ### Links to Tutorials
 Watch how we build this package, line by line (detailed tutorial):

@@ -12,6 +12,14 @@ After this, it is recommended to update all your tasks to have one default value
 ```bash
 task rc.allow.empty.filter=1 modify reward:0
 ```
+To change your report to show this new column, just add to your `.tasrc` this lines
+```
+default.command=ready
+report.ready.labels=ID,Active,Age,D,P,Project,Tags,R,S,Due,Until,Description,Reward,Urg
+report.ready.columns=id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due.countdown,until.remaining,description,reward,urgency
+```
+
+
 It allow you to create rewards to your tasks. For example, try `task add Take out the garbage reward:1`.
 Not only, but it allow you to create some tasks with negative reward value, that you can interpret as one award that you pay with the accumulated rewards. Try `task add Watch a movie reward:-10`.
 > I suggest you to always duplicate the award tasks before use done on these.

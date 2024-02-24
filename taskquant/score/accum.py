@@ -118,7 +118,7 @@ def _create_weekly_rollingsum(combined_l):
     return combined_l
 
 
-def score_accum(task_path, verbosity=False, weekly=False):
+def score_accum(task_path, verbosity=False, isbalance=False, weekly=False):
     """
     Create a scoreboard using 'score' attribute of tasks
     """
@@ -154,6 +154,10 @@ def score_accum(task_path, verbosity=False, weekly=False):
                 ["Date", "Coins", "Balance"],
             )
         )
+
+    if isbalance: # print balance and exit the application
+        print(combined_l[len(combined_l)-1][2])
+        return
 
     _create_table_auto(
         combined_l,

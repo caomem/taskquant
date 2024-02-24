@@ -54,7 +54,7 @@ def _task_to_dict(tasks):
                 task["project"],
                 task["end"].date(),
                 task["effort"] or "",
-                task["score"] or 0,
+                task["reward"] or 0,
                 task["tags"],
             )
         )
@@ -143,7 +143,7 @@ def score_accum(task_path, verbosity=False, weekly=False):
             map(
                 # f'\033[1m\033[4m{x}\033[0m'
                 lambda x: f"{textstyle.BOLD}{textstyle.UNDERLINE}{textstyle.OKCYAN}{x}{textstyle.RESET}",
-                ["Week#", "Score", "Cumulative"],
+                ["Week#", "Coins", "Balance"],
             )
         )
     else:
@@ -151,7 +151,7 @@ def score_accum(task_path, verbosity=False, weekly=False):
             map(
                 # f'\033[1m\033[4m{x}\033[0m'
                 lambda x: f"{textstyle.BOLD}{textstyle.UNDERLINE}{textstyle.OKCYAN}{x}{textstyle.RESET}",
-                ["Date", "Score", "Cumulative"],
+                ["Date", "Coins", "Balance"],
             )
         )
 

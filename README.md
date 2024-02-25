@@ -17,16 +17,20 @@ To change your report to show this new column, just add to your `.tasrc` this li
 default.command=ready
 report.ready.labels=ID,Active,Age,D,P,Project,Tags,R,S,Due,Until,Description,Reward,Urg
 report.ready.columns=id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due.countdown,until.remaining,description,reward,urgency
+report.completed.labels=ID,UUID,Created,Completed,Age,Deps,P,Project,Tags,R,Reward,Due,Description
+report.completed.columns=id,uuid.short,entry,end,entry.age,depends,priority,project,tags,recur.indicator,reward,due,description
 ```
 
 
 It allow you to create rewards to your tasks. For example, try `task add Take out the garbage reward:1`.
-Not only, but it allow you to create some tasks with negative reward value, that you can interpret as one award that you pay with the accumulated rewards. Try `task add Watch a movie reward:-10`.
+Not only, but it allow you to create some tasks with negative reward value, that you can interpret as one award that you pay with the accumulated rewards. Try `task log Watch a movie reward:-10 +award`.
 > I suggest you to always duplicate the award tasks before use done on these.
 Another good idea is to create some contexts to filter for this awards:
 ```
 context.work.read=project:work and (reward.after:0 or reward:0)
-context.market.read=reward.before:-1
+context.market.read=reward.before:-1 or +award
+context.market.write=project:fun +award
+urgency.user.tag.award.coefficient=-15.0
 ```
 
 TaskQuant will then compute the rewards you have accumulated across the different tasks and return a rewardsheet.

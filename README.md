@@ -12,7 +12,7 @@ After this, it is recommended to update all your tasks to have one default value
 ```bash
 task rc.allow.empty.filter=1 modify reward:0
 ```
-To change your report to show this new column, just add to your `.tasrc` this lines
+To change your report to show this new column, just add to your `.taskrc` this lines
 ```
 default.command=ready
 report.ready.labels=ID,Active,Age,D,P,Project,Tags,R,S,Due,Until,Description,Reward,Urg

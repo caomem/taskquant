@@ -28,7 +28,7 @@ Not only, but it allow you to create some tasks with negative reward value, that
 Another good idea is to create some contexts to filter for this awards:
 ```
 context.work.read=project:work and (reward.after:0 or reward:0)
-context.market.read=reward.before:-1 or +award
+context.market.read=reward.before:0 or +award
 context.market.write=project:fun +award
 urgency.user.tag.award.coefficient=-15.0
 ```
